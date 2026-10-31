@@ -1,0 +1,17 @@
+{
+    "category": "wood",
+    "threshold_protocol": "in-domain calibration",
+    "threshold_source": "models\\wood_threshold_calibrated.json",
+    "threshold": 0.002604504609913844,
+    "pixel_threshold": 0.010125379078090191,
+    "accuracy": 0.8985507246376812,
+    "precision": 0.9206349206349206,
+    "recall": 0.9666666666666667,
+    "f1": 0.943089430894309,
+    "roc_auc": 0.8592592592592593,
+    "n_defect_images": 60,
+    "iou": 0.12219240124129833,
+    "pixel_precision": 0.17369067347011766,
+    "pixel_recall": 0.29184695512820513,
+    "pixel_f1": 0.21777442282827225
+}

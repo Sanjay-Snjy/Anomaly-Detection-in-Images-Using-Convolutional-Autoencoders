@@ -1,0 +1,151 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793428812.664565   14312 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.3)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793428818.909091   14312 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+I0000 00:00:1793428842.474585   14312 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+TensorFlow version: 2.21.0
+No GPU found, training will run on CPU.
+[screw] Normal training images: 320
+Split: 256 train, 64 validation
+============================================================
+CONVOLUTIONAL AUTOENCODER
+Latent shape: 16 x 16 x 16 = 4096 values
+============================================================
+Model: "screw_autoencoder"
++--------------------------------------------------------------------------+
+| Layer (type)                    | Output Shape           |       Param # |
+|---------------------------------+------------------------+---------------|
+| input_layer (InputLayer)        | (None, 128, 128, 1)    |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d (Conv2D)                 | (None, 128, 128, 32)   |           320 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization             | (None, 128, 128, 32)   |           128 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d (MaxPooling2D)    | (None, 64, 64, 32)     |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_1 (Conv2D)               | (None, 64, 64, 64)     |        18,496 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_1           | (None, 64, 64, 64)     |           256 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d_1 (MaxPooling2D)  | (None, 32, 32, 64)     |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_2 (Conv2D)               | (None, 32, 32, 128)    |        73,856 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_2           | (None, 32, 32, 128)    |           512 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d_2 (MaxPooling2D)  | (None, 16, 16, 128)    |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_3 (Conv2D)               | (None, 16, 16, 16)     |        18,448 |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose                | (None, 32, 32, 128)    |        18,560 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_3           | (None, 32, 32, 128)    |           512 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose_1              | (None, 64, 64, 64)     |        73,792 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_4           | (None, 64, 64, 64)     |           256 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose_2              | (None, 128, 128, 32)   |        18,464 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_5           | (None, 128, 128, 32)   |           128 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_4 (Conv2D)               | (None, 128, 128, 1)    |           289 |
++--------------------------------------------------------------------------+
+ Total params: 224,017 (875.07 KB)
+ Trainable params: 223,121 (871.57 KB)
+ Non-trainable params: 896 (3.50 KB)
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\trainers\epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+Augmentation ON (normal training images only)
+Epoch 1/50
+8/8 - 23s - 3s/step - loss: 0.0915 - val_loss: 0.0833 - learning_rate: 0.0010
+Epoch 2/50
+8/8 - 8s - 989ms/step - loss: 0.0435 - val_loss: 0.0482 - learning_rate: 0.0010
+Epoch 3/50
+8/8 - 8s - 1s/step - loss: 0.0312 - val_loss: 0.0291 - learning_rate: 0.0010
+Epoch 4/50
+8/8 - 7s - 927ms/step - loss: 0.0241 - val_loss: 0.0191 - learning_rate: 0.0010
+Epoch 5/50
+8/8 - 7s - 915ms/step - loss: 0.0201 - val_loss: 0.0159 - learning_rate: 0.0010
+Epoch 6/50
+8/8 - 7s - 932ms/step - loss: 0.0173 - val_loss: 0.0128 - learning_rate: 0.0010
+Epoch 7/50
+8/8 - 7s - 923ms/step - loss: 0.0156 - val_loss: 0.0099 - learning_rate: 0.0010
+Epoch 8/50
+8/8 - 7s - 926ms/step - loss: 0.0144 - val_loss: 0.0085 - learning_rate: 0.0010
+Epoch 9/50
+8/8 - 8s - 938ms/step - loss: 0.0135 - val_loss: 0.0088 - learning_rate: 0.0010
+Epoch 10/50
+8/8 - 7s - 918ms/step - loss: 0.0130 - val_loss: 0.0073 - learning_rate: 0.0010
+Epoch 11/50
+8/8 - 7s - 923ms/step - loss: 0.0114 - val_loss: 0.0062 - learning_rate: 0.0010
+Epoch 12/50
+8/8 - 8s - 942ms/step - loss: 0.0104 - val_loss: 0.0059 - learning_rate: 0.0010
+Epoch 13/50
+8/8 - 8s - 955ms/step - loss: 0.0095 - val_loss: 0.0055 - learning_rate: 0.0010
+Epoch 14/50
+8/8 - 8s - 962ms/step - loss: 0.0094 - val_loss: 0.0053 - learning_rate: 0.0010
+Epoch 15/50
+8/8 - 7s - 921ms/step - loss: 0.0086 - val_loss: 0.0054 - learning_rate: 0.0010
+Epoch 16/50
+8/8 - 7s - 932ms/step - loss: 0.0084 - val_loss: 0.0057 - learning_rate: 0.0010
+Epoch 17/50
+8/8 - 7s - 925ms/step - loss: 0.0083 - val_loss: 0.0058 - learning_rate: 0.0010
+Epoch 18/50
+8/8 - 8s - 938ms/step - loss: 0.0078 - val_loss: 0.0054 - learning_rate: 0.0010
+Epoch 19/50
+8/8 - 7s - 914ms/step - loss: 0.0077 - val_loss: 0.0048 - learning_rate: 0.0010
+Epoch 20/50
+8/8 - 7s - 935ms/step - loss: 0.0074 - val_loss: 0.0042 - learning_rate: 0.0010
+Epoch 21/50
+8/8 - 8s - 969ms/step - loss: 0.0075 - val_loss: 0.0041 - learning_rate: 0.0010
+Epoch 22/50
+8/8 - 8s - 966ms/step - loss: 0.0075 - val_loss: 0.0043 - learning_rate: 0.0010
+Epoch 23/50
+8/8 - 8s - 951ms/step - loss: 0.0077 - val_loss: 0.0053 - learning_rate: 0.0010
+Epoch 24/50
+8/8 - 8s - 942ms/step - loss: 0.0082 - val_loss: 0.0050 - learning_rate: 0.0010
+Epoch 25/50
+
+Epoch 25: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+8/8 - 8s - 982ms/step - loss: 0.0076 - val_loss: 0.0046 - learning_rate: 0.0010
+Epoch 26/50
+8/8 - 7s - 920ms/step - loss: 0.0071 - val_loss: 0.0038 - learning_rate: 5.0000e-04
+Epoch 27/50
+8/8 - 8s - 960ms/step - loss: 0.0064 - val_loss: 0.0039 - learning_rate: 5.0000e-04
+Epoch 28/50
+8/8 - 7s - 928ms/step - loss: 0.0066 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 29/50
+8/8 - 7s - 935ms/step - loss: 0.0065 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 30/50
+8/8 - 7s - 935ms/step - loss: 0.0062 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 31/50
+8/8 - 8s - 942ms/step - loss: 0.0063 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 32/50
+8/8 - 8s - 991ms/step - loss: 0.0065 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 33/50
+8/8 - 10s - 1s/step - loss: 0.0064 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 34/50
+
+Epoch 34: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+8/8 - 10s - 1s/step - loss: 0.0064 - val_loss: 0.0037 - learning_rate: 5.0000e-04
+Epoch 35/50
+8/8 - 15s - 2s/step - loss: 0.0062 - val_loss: 0.0037 - learning_rate: 2.5000e-04
+Epoch 36/50
+8/8 - 36s - 4s/step - loss: 0.0064 - val_loss: 0.0037 - learning_rate: 2.5000e-04
+Epoch 37/50
+8/8 - 36s - 4s/step - loss: 0.0062 - val_loss: 0.0036 - learning_rate: 2.5000e-04
+Epoch 38/50

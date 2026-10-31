@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Screw anomaly detection — CNN autoencoder</title>
+<link rel="stylesheet" href="/static/style.css?v=4" />
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>Anomaly detection</h1>
+    <p class="sub">
+      CNN convolutional autoencoder trained on <strong>normal</strong> MVTec screws only.
+      Upload an image: the reconstruction error decides <span class="tag ok">NORMAL</span> vs
+      <span class="tag bad">ANOMALY</span>.
+    </p>
+  </div>
+  <div class="status">
+    <span id="status-pill" class="pill loading">connecting…</span>
+    <span id="status-detail" class="muted"></span>
+  </div>
+</header>
+
+<main>
+  <!-- Left column: input + verdict -->
+  <section class="card">
+    <h2>1 · Input image</h2>
+
+    <div id="dropzone" class="dropzone" tabindex="0" role="button"
+         aria-label="Choose or drop a screw image">
+      <div class="dropzone-inner">
+        <strong>Drop a screw image here</strong>
+        <span class="muted">or click to choose a file (PNG / JPG)</span>
+      </div>
+      <input id="file-input" type="file" accept="image/*" hidden />
+    </div>
+
+    <div class="row">
+      <div>
+        <label class="lbl" for="preview-img">Selected</label>
+        <img id="preview-img" class="preview" alt="" hidden />
+        <span id="preview-name" class="muted">nothing selected yet</span>
+      </div>
+      <div class="controls">
+        <button id="predict-btn" class="primary" disabled>Run detection</button>
+        <button id="clear-btn" class="ghost">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="result-card">
+    <h2>2 · Verdict</h2>
+    <div id="result-empty" class="empty muted">Run a detection to see the verdict, the
+      reconstruction and the anomaly heatmap.</div>
+
+    <div id="result-body" hidden>
+      <div class="verdict-row">
+        <span id="verdict" class="verdict">—</span>
+        <div class="score-block">
+          <div class="score-line">
+            <span>Anomaly score</span>
+            <strong id="score-value">—</strong>
+          </div>
+          <div class="bar" title="score vs threshold">
+            <div id="bar-fill" class="bar-fill"></div>
+            <div id="bar-marker" class="bar-marker"></div>
+          </div>
+          <div class="score-legend">
+            <span>0</span>
+            <span id="threshold-value">threshold —</span>
+            <span id="bar-scale">—</span>
+          </div>
+        </div>
+      </div>
+
+      <dl id="stats" class="stats"></dl>
+
+      <div class="opacity">
+        <label for="overlay-opacity">Overlay opacity</label>
+        <input id="overlay-opacity" type="range" min="0" max="100" value="55" />
+        <span id="opacity-value">55%</span>
+      </div>
+
+      <div class="panels">
+        <figure>
+          <div class="stack">
+            <img id="img-original" alt="preprocessed original" />
+            <img id="img-overlay" class="overlay" alt="anomaly heatmap overlay" />
+          </div>
+          <figcaption>Original (128×128) with heatmap overlay</figcaption>
+        </figure>
+        <figure>
+          <img id="img-reconstruction" alt="reconstruction" />
+          <figcaption>Reconstruction — the model saw only normal screws</figcaption>
+        </figure>
+        <figure>
+          <img id="img-error" alt="error map" />
+          <figcaption>Error map <code>(x − x̂)²</code>, hot = poorly reconstructed</figcaption>
+        </figure>
+      </div>
+      <p id="explain" class="note"></p>
+    </div>
+  </section>
+
+  <!-- Right column: measured performance + saved figures -->
+  <section class="card">
+    <h2>3 · Measured performance (test set, 160 images)</h2>
+    <div id="metrics"><span class="muted">loading metrics…</span></div>
+  </section>
+
+
+
+<footer>
+  <span class="muted">
+    Local inference only — the Keras model runs on this machine; nothing is uploaded to a server.
+  </span>
+</footer>
+
+<script src="/static/app.js?v=4"></script>
+</body>
+</html>

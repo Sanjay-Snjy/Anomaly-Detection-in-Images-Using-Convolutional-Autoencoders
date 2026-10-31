@@ -1,107 +1,160 @@
 """
-evaluate.py — evaluate the trained autoencoder on the MVTec screw test set.
+evaluate.py — evaluate a trained autoencoder on one MVTec test set.
 
-Flow:
-    load trained model + threshold
-        -> load test dataset (good + all defect types, with GT masks)
-        -> predict all images (continuous anomaly scores)
-        -> image-level metrics: accuracy / precision / recall / F1 / ROC-AUC
-        -> localization metrics vs GT masks: IoU / pixel P / R / F1
-        -> plots: confusion_matrix.png, roc_curve.png, example heatmaps
+Steps:
+    load model + threshold for the category
+    load test images (good + all defect types, with ground-truth masks)
+    predict every image and compute image-level metrics
+    compute pixel-level IoU / precision / recall / F1
+    save confusion matrix, ROC curve and example heatmaps
+
+Two threshold protocols:
+    python evaluate.py
+        threshold from train.py, fitted on the validation split of train/good
+    python evaluate.py --domain-calibration 0.5
+        threshold fitted on half of the normal TEST images (same capture batch);
+        those images are then removed from the evaluation set
 
 Run:
-    python evaluate.py [--num-heatmap-examples 4] [--dataset-root PATH]
+    python evaluate.py --category screw
+    python evaluate.py --category wood --domain-calibration 0.5
+    python evaluate.py --category bottle --domain-calibration 0.5
 """
-
-from __future__ import annotations
 
 import argparse
 import json
 
+import numpy as np
+
 from anomaly_detection import (
-    AnomalyDetectionConfig,
-    calculate_anomaly_score,
-    calculate_reconstruction_error,
-    create_predicted_mask,
+    anomaly_score,
+    calibrate_threshold,
+    category_paths,
     evaluate_image_level,
     evaluate_localization,
-    generate_anomaly_heatmap,
     load_mask,
-    load_test_dataset,
+    load_model,
+    load_test_images,
     load_threshold,
-    load_trained_model,
+    make_mask,
     plot_confusion_matrix,
     plot_roc_curve,
-    print_metrics_report,
+    print_report,
+    reconstruction_error,
+    save_threshold,
     set_seeds,
-    visualize_localization_comparison,
+    show_heatmap,
+    show_localization,
 )
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate MVTec screw autoencoder")
-    parser.add_argument("--dataset-root", type=str, default=None)
-    parser.add_argument("--category", type=str, default=None)
-    parser.add_argument("--batch-size", type=int, default=None)
+def parse_args():
+    parser = argparse.ArgumentParser(description="Evaluate the autoencoder")
+    parser.add_argument("--category", default="screw",
+                        help="MVTec category folder name (screw, wood, bottle, ...)")
     parser.add_argument("--num-heatmap-examples", type=int, default=4,
-                        help="How many example heatmaps to save per class")
+                        help="How many normal/defect heatmaps to save")
     parser.add_argument("--skip-localization", action="store_true",
-                        help="Skip pixel-level evaluation against GT masks")
+                        help="Skip the pixel-level evaluation")
+    parser.add_argument("--domain-calibration", type=float, default=0.0,
+                        help="Fraction of normal test images used to fit the "
+                             "threshold (e.g. 0.5). Those images are excluded "
+                             "from the metrics. 0 keeps the train.py threshold.")
     return parser.parse_args()
 
 
-def main() -> None:
+def apply_domain_calibration(model, test_images, test_labels, defect_types,
+                             mask_paths, fraction, category, threshold_path):
+    """Fit the threshold on held-out normal test images."""
+    good_index = np.flatnonzero(test_labels == 0)
+    n_calibration = int(round(fraction * len(good_index)))
+
+    if n_calibration < 1 or n_calibration >= len(good_index):
+        raise ValueError(
+            f"--domain-calibration {fraction} would use {n_calibration} of "
+            f"{len(good_index)} normal images; choose a fraction that leaves "
+            f"at least one normal image for evaluation."
+        )
+
+    calibration_index = good_index[:n_calibration]
+    keep = np.setdiff1d(np.arange(len(test_labels)), calibration_index)
+
+    print(f"Calibrating on {n_calibration} normal test images; "
+          f"evaluating on the remaining {len(keep)} images.")
+
+    info = calibrate_threshold(model, test_images[calibration_index], category)
+    save_threshold(info, threshold_path)
+
+    return (
+        float(info["threshold"]),
+        float(info["pixel_threshold"]),
+        test_images[keep],
+        test_labels[keep],
+        [defect_types[i] for i in keep],
+        [mask_paths[i] for i in keep],
+    )
+
+
+def main():
     args = parse_args()
-    config = AnomalyDetectionConfig()
-    if args.dataset_root is not None:
-        config.dataset_root = Path(args.dataset_root)
-    if args.category is not None:
-        config.category = args.category
-    if args.batch_size is not None:
-        config.batch_size = args.batch_size
+    category = args.category
+    paths = category_paths(category)
 
-    set_seeds(config.seed)
-    config.ensure_output_dirs()
+    set_seeds()
 
-    # 1. Load trained artefacts (no retraining).
-    model = load_trained_model(config.model_path)
-    threshold_info = load_threshold(config.threshold_path)
+    paths["results"].mkdir(parents=True, exist_ok=True)
+    paths["heatmaps"].mkdir(parents=True, exist_ok=True)
+
+    # 1. Load the trained model and the saved threshold.
+    model = load_model(paths["model"])
+    threshold_info = load_threshold(paths["threshold"])
     threshold = float(threshold_info["threshold"])
     pixel_threshold = float(threshold_info.get("pixel_threshold", threshold))
 
-    # 2. Load test data (normal + defective, with ground-truth mask paths).
-    test_images, test_labels, defect_types, mask_paths = load_test_dataset(config)
-    print(f"Test set: {len(test_images)} images "
-          f"({int(test_labels.sum())} anomalous, {int((test_labels == 0).sum())} normal)")
+    # 2. Test data.
+    test_images, test_labels, defect_types, mask_paths = load_test_images(category)
+    print(f"[{category}] Test set: {len(test_images)} images "
+          f"({int(test_labels.sum())} defective, "
+          f"{int((test_labels == 0).sum())} normal)")
 
-    # 3. Predict every test image and compute image-level metrics.
-    metrics = evaluate_image_level(
-        model, test_images, test_labels, threshold, batch_size=config.batch_size
-    )
+    # 2b. Optional in-domain calibration.
+    if args.domain_calibration > 0:
+        (threshold, pixel_threshold, test_images, test_labels,
+         defect_types, mask_paths) = apply_domain_calibration(
+            model, test_images, test_labels, defect_types, mask_paths,
+            args.domain_calibration, category, paths["calibrated_threshold"],
+        )
+        protocol = "in-domain calibration"
+        threshold_source = str(paths["calibrated_threshold"])
+    else:
+        protocol = "validation split"
+        threshold_source = str(paths["threshold"])
 
-    # 4. Pixel-level localization metrics against the MVTec masks.
-    localization_metrics: dict = {}
+    print("Threshold protocol:", protocol)
+
+    # 3. Image-level metrics.
+    metrics = evaluate_image_level(model, test_images, test_labels, threshold)
+
+    # 4. Pixel-level metrics.
+    localization_metrics = {}
     if not args.skip_localization:
         localization_metrics = evaluate_localization(
-            model,
-            test_images,
-            mask_paths,
-            pixel_threshold,
-            batch_size=config.batch_size,
-            image_size=config.image_size,
+            model, test_images, mask_paths, pixel_threshold
         )
 
-    # 5. Console report + saved figures.
-    print_metrics_report(metrics, localization_metrics, threshold)
+    # 5. Report and figures.
+    print_report(metrics, localization_metrics, threshold)
 
     plot_confusion_matrix(metrics["confusion_matrix"],
-                          config.results_dir / "confusion_matrix.png")
-    plot_roc_curve(metrics.get("fpr"), metrics.get("tpr"),
-                   metrics["roc_auc"], config.results_dir / "roc_curve.png")
+                          paths["results"] / "confusion_matrix.png")
+    plot_roc_curve(metrics["fpr"], metrics["tpr"], metrics["roc_auc"],
+                   paths["results"] / "roc_curve.png")
 
-    # 6. Save a machine-readable metrics summary (nice for the report/viva).
+    # 6. Machine-readable summary.
     summary = {
-        "category": config.category,
+        "category": category,
+        "threshold_protocol": protocol,
+        "threshold_source": threshold_source,
         "threshold": threshold,
         "pixel_threshold": pixel_threshold,
         "accuracy": metrics["accuracy"],
@@ -111,45 +164,61 @@ def main() -> None:
         "roc_auc": metrics["roc_auc"],
         **localization_metrics,
     }
-    summary_path = config.results_dir / "metrics_summary.json"
-    with open(summary_path, "w", encoding="utf-8") as fh:
-        json.dump(summary, fh, indent=4)
-    print(f"Saved metrics summary: {summary_path}")
+    summary_path = paths["results"] / "metrics_summary.json"
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=4)
 
-    # 7. Example heatmaps: a few normal and a few defective test images.
+    protocol_name = (
+        "metrics_summary_domain_calibration.json"
+        if args.domain_calibration > 0
+        else "metrics_summary_val_threshold.json"
+    )
+    protocol_path = paths["results"] / protocol_name
+    with open(protocol_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=4)
+
+    print("Saved metrics summary:", summary_path)
+    print("Saved protocol summary:", protocol_path)
+
+    # 7. Example heatmaps.
     n_examples = args.num_heatmap_examples
-    normal_idx = [i for i, y in enumerate(test_labels) if y == 0][:n_examples]
-    defect_idx = [i for i, y in enumerate(test_labels) if y == 1][:n_examples]
-    for i in normal_idx + defect_idx:
-        recon = model.predict(test_images[i : i + 1], verbose=0)[0]
-        error_map = calculate_reconstruction_error(test_images[i], recon)
-        anomaly_score = calculate_anomaly_score(error_map)
+    normal_index = [i for i, y in enumerate(test_labels) if y == 0][:n_examples]
+    defect_index = [i for i, y in enumerate(test_labels) if y == 1][:n_examples]
+
+    for i in normal_index + defect_index:
+        reconstruction = model.predict(test_images[i:i + 1], verbose=0)[0]
+        error_map = reconstruction_error(test_images[i], reconstruction)
+        score = anomaly_score(error_map)
+
         result = {
             "original": test_images[i],
-            "reconstruction": recon,
+            "reconstruction": reconstruction,
             "error_map": error_map,
-            "anomaly_score": anomaly_score,
-            "prediction": "ANOMALY" if anomaly_score > threshold else "NORMAL",
+            "anomaly_score": score,
+            "prediction": "ANOMALY" if score > threshold else "NORMAL",
             "threshold": threshold,
-            "predicted_mask": create_predicted_mask(error_map, pixel_threshold),
+            "predicted_mask": make_mask(error_map, pixel_threshold),
         }
+
         is_defect = test_labels[i] == 1
         prefix = "defect" if is_defect else "normal"
-        stem = f"{prefix}_{defect_types[i]}_{i:03d}"
-        generate_anomaly_heatmap(
+        name = f"{prefix}_{defect_types[i]}_{i:03d}"
+
+        show_heatmap(
             result,
-            save_path=config.heatmaps_dir / f"example_{stem}.png",
+            save_path=paths["heatmaps"] / f"example_{name}.png",
             title_prefix=f"[{defect_types[i]}] ",
         )
-        # Ground-truth localization comparison for defective images.
+
         if is_defect and mask_paths[i] is not None:
-            gt_mask = load_mask(mask_paths[i], config.image_size)
-            visualize_localization_comparison(
-                result, gt_mask,
-                save_path=config.heatmaps_dir / f"localization_{stem}.png",
+            gt_mask = load_mask(mask_paths[i])
+            show_localization(
+                result,
+                gt_mask,
+                save_path=paths["heatmaps"] / f"localization_{name}.png",
             )
 
-    print("\nEvaluation complete. Figures saved under", config.results_dir)
+    print("\nEvaluation complete. Figures are in", paths["results"])
 
 
 if __name__ == "__main__":

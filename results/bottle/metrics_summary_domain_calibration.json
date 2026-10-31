@@ -1,0 +1,17 @@
+{
+    "category": "bottle",
+    "threshold_protocol": "in-domain calibration",
+    "threshold_source": "models\\bottle_threshold_calibrated.json",
+    "threshold": 0.0025081958831159414,
+    "pixel_threshold": 0.020858990028500557,
+    "accuracy": 0.5342465753424658,
+    "precision": 0.967741935483871,
+    "recall": 0.47619047619047616,
+    "f1": 0.6382978723404256,
+    "roc_auc": 0.7444444444444445,
+    "n_defect_images": 63,
+    "iou": 0.04166717445615745,
+    "pixel_precision": 0.49457543758136846,
+    "pixel_recall": 0.04352032178816461,
+    "pixel_f1": 0.08000093595713316
+}

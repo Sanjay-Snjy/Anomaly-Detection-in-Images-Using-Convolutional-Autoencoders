@@ -1,0 +1,121 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793427116.128390   13064 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.3)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793427122.856605   13064 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+I0000 00:00:1793427136.441302   13064 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+TensorFlow version: 2.21.0
+No GPU found, training will run on CPU.
+[bottle] Normal training images: 209
+Split: 167 train, 42 validation
+============================================================
+CONVOLUTIONAL AUTOENCODER
+Latent shape: 16 x 16 x 16 = 4096 values
+============================================================
+Model: "screw_autoencoder"
++--------------------------------------------------------------------------+
+| Layer (type)                    | Output Shape           |       Param # |
+|---------------------------------+------------------------+---------------|
+| input_layer (InputLayer)        | (None, 128, 128, 1)    |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d (Conv2D)                 | (None, 128, 128, 32)   |           320 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization             | (None, 128, 128, 32)   |           128 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d (MaxPooling2D)    | (None, 64, 64, 32)     |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_1 (Conv2D)               | (None, 64, 64, 64)     |        18,496 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_1           | (None, 64, 64, 64)     |           256 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d_1 (MaxPooling2D)  | (None, 32, 32, 64)     |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_2 (Conv2D)               | (None, 32, 32, 128)    |        73,856 |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_2           | (None, 32, 32, 128)    |           512 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| max_pooling2d_2 (MaxPooling2D)  | (None, 16, 16, 128)    |             0 |
+|---------------------------------+------------------------+---------------|
+| conv2d_3 (Conv2D)               | (None, 16, 16, 16)     |        18,448 |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose                | (None, 32, 32, 128)    |        18,560 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_3           | (None, 32, 32, 128)    |           512 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose_1              | (None, 64, 64, 64)     |        73,792 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_4           | (None, 64, 64, 64)     |           256 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_transpose_2              | (None, 128, 128, 32)   |        18,464 |
+| (Conv2DTranspose)               |                        |               |
+|---------------------------------+------------------------+---------------|
+| batch_normalization_5           | (None, 128, 128, 32)   |           128 |
+| (BatchNormalization)            |                        |               |
+|---------------------------------+------------------------+---------------|
+| conv2d_4 (Conv2D)               | (None, 128, 128, 1)    |           289 |
++--------------------------------------------------------------------------+
+ Total params: 224,017 (875.07 KB)
+ Trainable params: 223,121 (871.57 KB)
+ Non-trainable params: 896 (3.50 KB)
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\trainers\epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+Augmentation ON (normal training images only)
+Epoch 1/50
+6/6 - 12s - 2s/step - loss: 0.0671 - val_loss: 0.1328 - learning_rate: 0.0010
+Epoch 2/50
+6/6 - 5s - 847ms/step - loss: 0.0217 - val_loss: 0.1328 - learning_rate: 0.0010
+Epoch 3/50
+6/6 - 5s - 887ms/step - loss: 0.0185 - val_loss: 0.1328 - learning_rate: 0.0010
+Epoch 4/50
+6/6 - 5s - 847ms/step - loss: 0.0132 - val_loss: 0.1328 - learning_rate: 0.0010
+Epoch 5/50
+6/6 - 5s - 841ms/step - loss: 0.0113 - val_loss: 0.1330 - learning_rate: 0.0010
+Epoch 6/50
+
+Epoch 6: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+6/6 - 5s - 836ms/step - loss: 0.0094 - val_loss: 0.1335 - learning_rate: 0.0010
+Epoch 7/50
+6/6 - 5s - 860ms/step - loss: 0.0082 - val_loss: 0.1344 - learning_rate: 5.0000e-04
+Epoch 8/50
+6/6 - 5s - 893ms/step - loss: 0.0076 - val_loss: 0.1354 - learning_rate: 5.0000e-04
+Epoch 9/50
+6/6 - 5s - 900ms/step - loss: 0.0072 - val_loss: 0.1365 - learning_rate: 5.0000e-04
+Epoch 10/50
+6/6 - 5s - 879ms/step - loss: 0.0069 - val_loss: 0.1376 - learning_rate: 5.0000e-04
+Epoch 11/50
+
+Epoch 11: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+6/6 - 5s - 862ms/step - loss: 0.0065 - val_loss: 0.1389 - learning_rate: 5.0000e-04
+Epoch 12/50
+6/6 - 5s - 886ms/step - loss: 0.0062 - val_loss: 0.1405 - learning_rate: 2.5000e-04
+Epoch 13/50
+6/6 - 5s - 866ms/step - loss: 0.0060 - val_loss: 0.1421 - learning_rate: 2.5000e-04
+Epoch 14/50
+6/6 - 5s - 869ms/step - loss: 0.0060 - val_loss: 0.1437 - learning_rate: 2.5000e-04
+Epoch 15/50
+6/6 - 6s - 1s/step - loss: 0.0058 - val_loss: 0.1454 - learning_rate: 2.5000e-04
+Epoch 16/50
+
+Epoch 16: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+6/6 - 7s - 1s/step - loss: 0.0065 - val_loss: 0.1472 - learning_rate: 2.5000e-04
+Epoch 16: early stopping
+Restoring model weights from the end of the best epoch: 6.
+Saved model: models\bottle_autoencoder.keras
+Saved threshold: models\bottle_threshold.json
+Saved training curve: results\bottle\training_history.png
+
+Training complete [bottle]
+  Model              : models\bottle_autoencoder.keras
+  Threshold          : 0.136918
+  Pixel threshold    : 0.442904
+  Next               : python evaluate.py --category bottle

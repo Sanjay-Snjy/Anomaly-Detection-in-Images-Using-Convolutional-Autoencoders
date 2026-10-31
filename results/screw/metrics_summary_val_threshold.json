@@ -1,0 +1,17 @@
+{
+    "category": "screw",
+    "threshold_protocol": "validation split",
+    "threshold_source": "models\\screw_threshold.json",
+    "threshold": 0.041929652041221496,
+    "pixel_threshold": 0.10537825524806976,
+    "accuracy": 0.25625,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.998975199836032,
+    "n_defect_images": 119,
+    "iou": 0.01099278598419787,
+    "pixel_precision": 0.012927054478301015,
+    "pixel_recall": 0.06843874121600978,
+    "pixel_f1": 0.021746517159361198
+}

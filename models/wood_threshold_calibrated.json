@@ -1,0 +1,12 @@
+{
+    "threshold": 0.002604504609913844,
+    "strategy": "mean_std",
+    "mean_normal_error": 0.001873018976766616,
+    "std_normal_error": 0.0002438285443824092,
+    "n_std": 3.0,
+    "percentile": 99.0,
+    "category": "wood",
+    "calibration": "in_domain_normal_images",
+    "pixel_threshold": 0.010125379078090191,
+    "n_calibration_images": 10
+}

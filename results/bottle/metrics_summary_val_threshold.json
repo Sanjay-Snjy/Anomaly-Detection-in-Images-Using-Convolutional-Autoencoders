@@ -1,0 +1,17 @@
+{
+    "category": "bottle",
+    "threshold_protocol": "validation split",
+    "threshold_source": "models\\bottle_threshold.json",
+    "threshold": 0.002864930443085746,
+    "pixel_threshold": 0.020023955032229424,
+    "accuracy": 0.4578313253012048,
+    "precision": 1.0,
+    "recall": 0.2857142857142857,
+    "f1": 0.4444444444444444,
+    "roc_auc": 0.7880952380952381,
+    "n_defect_images": 63,
+    "iou": 0.042780229907358004,
+    "pixel_precision": 0.47451244115669133,
+    "pixel_recall": 0.04490777866880513,
+    "pixel_f1": 0.08205032792222894
+}

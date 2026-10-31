@@ -1,0 +1,22 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793430408.992452   23012 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.3)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793430418.776797   23012 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+INFO:     Started server process [15404]
+INFO:     Waiting for application startup.
+I0000 00:00:1793430430.199844   23012 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8124 (Press CTRL+C to quit)
+Loaded model: models\screw_autoencoder.keras
+[app] model loaded in 1.0s (warm-up 0.83s) | thresholds: calibrated, validation | default: calibrated
+INFO:     127.0.0.1:3775 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3777 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3777 - "GET /static/style.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:3778 - "GET /static/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3778 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3777 - "GET /api/samples HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3779 - "GET /api/metrics HTTP/1.1" 200 OK

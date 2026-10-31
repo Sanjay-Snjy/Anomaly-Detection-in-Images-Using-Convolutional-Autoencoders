@@ -1,0 +1,11 @@
+{
+    "threshold": 0.002864930443085746,
+    "strategy": "mean_std",
+    "mean_normal_error": 0.0019982066726134647,
+    "std_normal_error": 0.0002889079234907605,
+    "n_std": 3.0,
+    "percentile": 99.0,
+    "category": "bottle",
+    "pixel_threshold": 0.020023955032229424,
+    "n_validation_images": 42
+}

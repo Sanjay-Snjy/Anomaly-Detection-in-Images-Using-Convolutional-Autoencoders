@@ -1,0 +1,11 @@
+{
+    "threshold": 0.041929652041221496,
+    "strategy": "mean_std",
+    "mean_normal_error": 0.025539203925291076,
+    "std_normal_error": 0.005463482705310141,
+    "n_std": 3.0,
+    "percentile": 99.0,
+    "category": "screw",
+    "pixel_threshold": 0.10537825524806976,
+    "n_validation_images": 64
+}

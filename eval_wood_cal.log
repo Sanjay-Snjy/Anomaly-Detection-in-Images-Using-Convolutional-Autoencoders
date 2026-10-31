@@ -1,0 +1,59 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793426547.646131   27168 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.3)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793426556.861030   27168 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1793426565.094080   27168 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+Loaded model: models\wood_autoencoder.keras
+test/color: 8 images
+test/combined: 11 images
+test/good: 19 images
+test/hole: 10 images
+test/liquid: 10 images
+test/scratch: 21 images
+[wood] Test set: 79 images (60 defective, 19 normal)
+Calibrating on 10 normal test images; evaluating on the remaining 69 images.
+Saved threshold: models\wood_threshold_calibrated.json
+Threshold protocol: in-domain calibration
+============================================================
+IMAGE-LEVEL EVALUATION
+============================================================
+Threshold        : 0.002605
+Accuracy         : 0.8986
+Precision        : 0.9206
+Recall           : 0.9667
+F1-score         : 0.9431
+ROC-AUC          : 0.8593
+Confusion matrix (rows = true, cols = predicted):
+[[ 4  5]
+ [ 2 58]]
+------------------------------------------------------------
+LOCALIZATION EVALUATION
+============================================================
+Defective images : 60
+IoU              : 0.1222
+Pixel precision  : 0.1737
+Pixel recall     : 0.2918
+Pixel F1         : 0.2178
+============================================================
+Saved confusion matrix: results\wood\confusion_matrix.png
+Saved ROC curve: results\wood\roc_curve.png
+Saved metrics summary: results\wood\metrics_summary.json
+Saved protocol summary: results\wood\metrics_summary_domain_calibration.json
+Saved heatmap: results\wood\heatmaps\example_normal_good_019.png
+Saved heatmap: results\wood\heatmaps\example_normal_good_020.png
+Saved heatmap: results\wood\heatmaps\example_normal_good_021.png
+Saved heatmap: results\wood\heatmaps\example_normal_good_022.png
+Saved heatmap: results\wood\heatmaps\example_defect_color_000.png
+Saved localization figure: results\wood\heatmaps\localization_defect_color_000.png
+Saved heatmap: results\wood\heatmaps\example_defect_color_001.png
+Saved localization figure: results\wood\heatmaps\localization_defect_color_001.png
+Saved heatmap: results\wood\heatmaps\example_defect_color_002.png
+Saved localization figure: results\wood\heatmaps\localization_defect_color_002.png
+Saved heatmap: results\wood\heatmaps\example_defect_color_003.png
+Saved localization figure: results\wood\heatmaps\localization_defect_color_003.png
+
+Evaluation complete. Figures are in results\wood
