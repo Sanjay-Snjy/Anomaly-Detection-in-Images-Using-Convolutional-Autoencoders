@@ -1,1 +1,34 @@
+# --- datasets (downloaded separately, see README) ---------------------------
+# The MVTec folder is ~5 GB; the archives are similar. Never commit either.
 mvtec_anomaly_detection/
+*.tar.xz
+*.tar.gz
+*.tgz
+*.zip
+
+# --- python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# --- logs and scratch runs -------------------------------------------------
+*.log
+run_*.sh
+_bn_fix.py
+models/*before_bn_fix*
+
+# --- secrets and local config ---------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- editors / os ----------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.freebuff/
