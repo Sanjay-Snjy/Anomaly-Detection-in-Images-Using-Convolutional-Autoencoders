@@ -394,10 +394,8 @@ def plot_training_history(history, save_path):
     plt.close()
     print("Saved training curve:", save_path)
 
-
-# ---------------------------------------------------------------------------
 # Reconstruction error and anomaly score
-# ---------------------------------------------------------------------------
+
 
 
 def reconstruct(model, image):
@@ -442,19 +440,13 @@ def score_images(model, images, batch_size=BATCH_SIZE):
     return scores, error_maps
 
 
-# ---------------------------------------------------------------------------
 # Thresholds (computed from normal images only)
-# ---------------------------------------------------------------------------
+
 
 
 def compute_threshold(normal_scores, strategy=THRESHOLD_STRATEGY,
                       n_std=THRESHOLD_N_STD, percentile=THRESHOLD_PERCENTILE):
-    """Image-level threshold from the scores of normal images.
-
-    mean_std   : mean + n_std * std        (the formula used in class)
-    percentile : e.g. the 99th percentile
-    max        : the largest normal score
-    """
+  
     scores = np.asarray(normal_scores, dtype=np.float64)
     mean_error = float(scores.mean())
     std_error = float(scores.std())

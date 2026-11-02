@@ -226,6 +226,46 @@ td.best { color: var(--ok); font-weight: 650; }
 .gallery .kind.defect { color: var(--bad); }
 .gallery .kind.localization { color: var(--accent); }
 
+/* --- results page --- */
+.results-main { grid-template-columns: 1fr; }
+.results-main .card { min-width: 0; }
+
+.navlink {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 12.5px;
+  text-decoration: none;
+}
+.navlink:hover { border-color: var(--accent); }
+#stamp { display: block; margin-top: 6px; font-size: 12px; }
+
+.table-scroll { overflow-x: auto; }
+.table-scroll table { min-width: 680px; }
+.cat-link { color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+.cat-link:hover { color: var(--accent); }
+
+.cat-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 10px; }
+.cat-head h2 { margin: 0; color: var(--text); text-transform: none; letter-spacing: 0; font-size: 18px; }
+.verdict-note {
+  margin: 0 0 16px;
+  padding: 9px 12px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel-2);
+}
+.verdict-note.good { color: var(--ok); border-color: rgba(52, 211, 153, 0.35); }
+.verdict-note.warn { color: var(--warn); border-color: rgba(251, 191, 36, 0.35); }
+.verdict-note.weak { color: var(--bad); border-color: rgba(248, 113, 113, 0.35); }
+
+.cat-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: start; }
+.cat-metrics .stats { margin-top: 12px; }
+.cat-figures .figure-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+
 footer { max-width: 1400px; margin: 26px auto 0; font-size: 12.5px; }
 
 @media (max-width: 620px) {

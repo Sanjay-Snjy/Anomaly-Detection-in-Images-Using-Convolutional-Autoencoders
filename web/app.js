@@ -110,14 +110,17 @@ function wireFileInput() {
     if (file) setPreview(file);
   });
 
-  $("clear-btn").addEventListener("click", clearInput);
-  $("predict-btn").addEventListener("click", runFilePrediction);
+  const clear = $("clear-btn");
+  const run = $("predict-btn");
+  if (clear) clear.addEventListener("click", clearInput);
+  if (run) run.addEventListener("click", runFilePrediction);
 }
 
 /* --------------------------------------------------------------- samples */
 
 async function loadSamples() {
   const container = $("samples");
+  if (!container) return;  // the samples panel is not part of this page
   try {
     const data = await api("/api/samples");
     if (!data.samples.length) {
@@ -209,7 +212,6 @@ function renderResult(result) {
 
   $("img-original").src = result.images.original;
   $("img-overlay").src = result.images.overlay;
-  $("img-reconstruction").src = result.images.reconstruction;
   $("img-error").src = result.images.error_map;
 
   const rows = [["Threshold", fmt(result.threshold, 5)]];
@@ -284,6 +286,7 @@ async function loadMetrics() {
 
 async function loadFigures() {
   const container = $("figures");
+  if (!container) return;  // the figures panel is not part of this page
   try {
     const figures = (await api("/api/figures")).figures;
     container.innerHTML = figures.map((figure) =>
@@ -298,6 +301,7 @@ async function loadFigures() {
 
 async function loadGallery() {
   const container = $("gallery");
+  if (!container) return;  // the gallery panel is not part of this page
   try {
     const items = (await api("/api/heatmaps")).heatmaps;
     const rank = { normal: 0, defect: 1, localization: 2, other: 3 };
@@ -317,6 +321,7 @@ async function loadGallery() {
 
 function wireOverlaySlider() {
   const slider = $("overlay-opacity");
+  if (!slider) return;
   slider.addEventListener("input", () => {
     $("img-overlay").style.opacity = String(slider.value / 100);
     $("opacity-value").textContent = `${slider.value}%`;

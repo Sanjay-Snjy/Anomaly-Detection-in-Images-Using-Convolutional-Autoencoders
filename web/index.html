@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Screw anomaly detection — CNN autoencoder</title>
-<link rel="stylesheet" href="/static/style.css?v=4" />
+<link rel="stylesheet" href="/static/style.css?v=6" />
 </head>
 <body>
 <header>
@@ -17,6 +17,7 @@
     </p>
   </div>
   <div class="status">
+    <a class="navlink" href="/results">All results →</a>
     <span id="status-pill" class="pill loading">connecting…</span>
     <span id="status-detail" class="muted"></span>
   </div>
@@ -91,10 +92,6 @@
           <figcaption>Original (128×128) with heatmap overlay</figcaption>
         </figure>
         <figure>
-          <img id="img-reconstruction" alt="reconstruction" />
-          <figcaption>Reconstruction — the model saw only normal screws</figcaption>
-        </figure>
-        <figure>
           <img id="img-error" alt="error map" />
           <figcaption>Error map <code>(x − x̂)²</code>, hot = poorly reconstructed</figcaption>
         </figure>
@@ -117,6 +114,6 @@
   </span>
 </footer>
 
-<script src="/static/app.js?v=4"></script>
+<script src="/static/app.js?v=6"></script>
 </body>
 </html>

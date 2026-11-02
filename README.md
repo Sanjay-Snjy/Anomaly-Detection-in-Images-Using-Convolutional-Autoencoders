@@ -355,6 +355,10 @@ the **bundled test images** served straight from
 * **Measured performance** table for both protocols, the saved evaluation figures
   (`confusion_matrix.png`, `roc_curve.png`, …) and a gallery of everything in
   `results/screw/heatmaps/`.
+* **Results page** (`/results`, linked from the header): every evaluated category —
+  screw, wood, bottle — in one summary table, plus a card per category with ROC-AUC,
+  pixel F1, the saved figures and its heatmap gallery. It reads `results/<category>/`
+  on every load, so the page cannot drift from the JSON written by `evaluate.py`.
 
 ### Endpoints
 
@@ -367,6 +371,9 @@ the **bundled test images** served straight from
 | `GET /api/samples` | Deterministic sample catalogue (3 good + 1 per defect type) with thumbnail URLs |
 | `GET /api/samples/{id}?thumb=1` | The bundled image, or a downscaled thumbnail |
 | `GET /api/metrics`, `/api/figures`, `/api/heatmaps` | `metrics_summary*.json`, evaluation figures, heatmap gallery |
+| `GET /results` | The cross-category results page (`web/results.html`, `web/results.js`) |
+| `GET /api/results` | Every category under `results/`: summary, dataset counts, figures, heatmaps |
+| `GET /api/results/{category}/figures/{name}` , `/heatmaps/{name}` | Allow-listed result images for one category |
 
 Unknown threshold modes and undecodable uploads return `400` with a readable
 message; file serving is allow-listed against a directory listing, so

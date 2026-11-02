@@ -1,0 +1,189 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793539873.992889    9532 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\thats\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (7.4.3)/charset_normalizer (3.4.3) doesn't match a supported version!
+  warnings.warn(
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793539882.607120    9532 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+INFO:     Started server process [24724]
+INFO:     Waiting for application startup.
+I0000 00:00:1793539890.282755    9532 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Loaded model: models\screw_autoencoder.keras
+[app] model loaded in 0.6s (warm-up 0.50s) | thresholds: calibrated, validation | default: calibrated
+INFO:     127.0.0.1:10242 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10243 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3129 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3130 - "GET /static/results.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3131 - "GET /api/results/screw/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3132 - "GET /api/results/wood/heatmaps/example_defect_color_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results/bottle/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /api/results/bottle/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3135 - "GET /api/results/bottle/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3136 - "GET /api/results/bottle/heatmaps/example_normal_good_063.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3137 - "GET /api/results/bottle/heatmaps/example_normal_good_064.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3138 - "GET /api/results/bottle/heatmaps/example_normal_good_065.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results/bottle/heatmaps/example_normal_good_066.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3135 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3138 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3137 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3136 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3135 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3137 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3138 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /api/results/screw/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3136 - "GET /api/results/screw/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results/screw/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3135 - "GET /api/results/screw/heatmaps/example_normal_good_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /api/results/screw/heatmaps/example_normal_good_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3137 - "GET /api/results/screw/heatmaps/example_normal_good_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results/screw/heatmaps/example_normal_good_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3136 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3138 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3135 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_023.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3137 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_024.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3133 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_041.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3136 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_043.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3134 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_042.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3138 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_044.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3141 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:14330 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/bottle/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/bottle/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/bottle/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/bottle/heatmaps/example_normal_good_063.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:13439 - "GET /api/results/bottle/heatmaps/example_normal_good_064.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/bottle/heatmaps/example_normal_good_065.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/bottle/heatmaps/example_normal_good_066.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/bottle/heatmaps/example_defect_broken_large_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13439 - "GET /api/results/bottle/heatmaps/localization_defect_broken_large_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/screw/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/screw/heatmaps/example_normal_good_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /api/results/screw/heatmaps/example_normal_good_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/screw/heatmaps/example_normal_good_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13439 - "GET /api/results/screw/heatmaps/example_normal_good_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_023.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13439 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_024.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_041.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_042.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_043.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13439 - "GET /api/results/screw/heatmaps/example_defect_manipulated_front_044.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1905 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_024.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2684 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14330 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_023.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_041.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_042.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_043.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_044.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/wood/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/wood/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10295 - "GET /api/results/wood/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/wood/heatmaps/example_normal_good_019.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10295 - "GET /api/results/wood/heatmaps/example_normal_good_020.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/wood/heatmaps/example_normal_good_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2402 - "GET /api/results/wood/heatmaps/example_normal_good_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5737 - "GET /api/results/wood/heatmaps/example_defect_color_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5582 - "GET /api/results/wood/heatmaps/example_defect_color_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10295 - "GET /api/results/wood/heatmaps/example_defect_color_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5737 - "GET /api/results/wood/heatmaps/example_defect_color_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2402 - "GET /api/results/wood/heatmaps/localization_defect_color_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9800 - "GET /api/results/wood/heatmaps/localization_defect_color_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2399 - "GET /api/results/wood/heatmaps/localization_defect_color_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5582 - "GET /api/results/wood/heatmaps/localization_defect_color_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8909 - "GET /api/results/wood/figures/confusion_matrix.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11010 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11010 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET /api/samples HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1099 - "GET /api/metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1099 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:1099 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1099 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6344 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:8573 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8573 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4040 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4040 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8573 - "GET /api/samples HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6002 - "GET /api/metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6002 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:6004 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6004 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6005 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6005 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6004 - "GET /api/samples HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6005 - "GET /api/metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_023.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_041.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_042.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_024.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_043.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/screw/heatmaps/localization_defect_manipulated_front_044.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/figures/roc_curve.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/wood/figures/training_history.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/heatmaps/example_normal_good_019.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/wood/heatmaps/example_normal_good_020.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/heatmaps/example_normal_good_021.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/wood/heatmaps/example_normal_good_022.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/wood/heatmaps/example_defect_color_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/wood/heatmaps/example_defect_color_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/wood/heatmaps/example_defect_color_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/heatmaps/example_defect_color_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3941 - "GET /api/results/wood/heatmaps/localization_defect_color_000.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/heatmaps/localization_defect_color_001.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3942 - "GET /api/results/wood/heatmaps/localization_defect_color_002.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3940 - "GET /api/results/wood/heatmaps/localization_defect_color_003.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3945 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3945 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3946 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3946 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3945 - "GET /api/metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9021 - "POST /api/predict?threshold_mode=calibrated HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9023 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9023 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9024 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9024 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9023 - "GET /api/metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9026 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9027 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9026 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9026 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9766 - "GET /results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9766 - "GET /static/style.css?v=6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2295 - "GET /static/results.js?v=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2295 - "GET /api/results HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2295 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:7564 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:1490 - "GET /favicon.ico HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:2564 - "GET /favicon.ico HTTP/1.1" 204 No Content

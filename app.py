@@ -24,10 +24,12 @@ from tensorflow import keras
 from anomaly_detection import (
     CALIBRATED_THRESHOLD_PATH,
     CATEGORY,
+    DATASET_ROOT,
     HEATMAPS_DIR,
     IMAGE_SIZE,
     MODEL_PATH,
     RESULTS_DIR,
+    RESULTS_ROOT,
     TEST_DIR,
     THRESHOLD_PATH,
     heatmap_overlay,
@@ -373,6 +375,99 @@ def _metrics_payload() -> Dict:
 
 
 # ---------------------------------------------------------------------------
+# Cross-category results (results/<category>/ written by evaluate.py)
+# ---------------------------------------------------------------------------
+
+PRIMARY_RESULT_FILES = (
+    ("metrics_summary_domain_calibration.json",
+     "In-domain calibrated threshold"),
+    ("metrics_summary.json", "Latest evaluate.py run"),
+)
+SECONDARY_RESULT_FILES = (
+    ("metrics_summary_val_threshold.json", "Validation-split threshold"),
+)
+FIGURE_LABELS = {
+    "confusion_matrix.png": "Confusion matrix",
+    "roc_curve.png": "ROC curve",
+    "training_history.png": "Training history",
+}
+
+
+def _summary_file(path: Path) -> Optional[Dict]:
+    """Read one metrics JSON, tolerating a missing or corrupt file."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _result_categories() -> List[str]:
+    """Category folders under results/, used as a serving allow-list."""
+    if not RESULTS_ROOT.is_dir():
+        return []
+    return sorted(p.name for p in RESULTS_ROOT.iterdir()
+                  if p.is_dir() and SAFE_NAME.match(p.name))
+
+
+def _category_result(category: str) -> Dict:
+    """Everything the results page shows for one category."""
+    directory = RESULTS_ROOT / category
+
+    primary = None
+    for filename, label in PRIMARY_RESULT_FILES:
+        summary = _summary_file(directory / filename)
+        if summary:
+            primary = {"file": filename, "label": label, "summary": summary}
+            break
+
+    secondary = None
+    for filename, label in SECONDARY_RESULT_FILES:
+        summary = _summary_file(directory / filename)
+        if summary:
+            secondary = {"file": filename, "label": label, "summary": summary}
+            break
+
+    test_dir = DATASET_ROOT / category / "test"
+    normal_images = len(_listed(test_dir / "good"))
+    test_images = sum(len(_listed(folder)) for folder in _subdirs(test_dir))
+
+    figures = [
+        {"name": name, "label": label,
+         "url": f"/api/results/{category}/figures/{name}"}
+        for name, label in FIGURE_LABELS.items()
+        if (directory / name).exists()
+    ]
+
+    heatmaps = []
+    for path in _listed(directory / "heatmaps"):
+        name = path.name
+        if name.startswith("example_normal"):
+            kind = "normal"
+        elif name.startswith("example_"):
+            kind = "defect"
+        elif name.startswith("localization_"):
+            kind = "localization"
+        else:
+            kind = "other"
+        heatmaps.append({"name": name, "kind": kind,
+                         "url": f"/api/results/{category}/heatmaps/{name}"})
+
+    return {
+        "category": category,
+        "primary": primary,
+        "secondary": secondary,
+        "dataset": {
+            "test_images": test_images,
+            "normal_images": normal_images,
+            "defect_images": max(test_images - normal_images, 0),
+        },
+        "figures": figures,
+        "heatmaps": heatmaps,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Routes: API
 # ---------------------------------------------------------------------------
 
@@ -530,6 +625,29 @@ async def heatmap(name: str) -> FileResponse:
                         media_type="image/png")
 
 
+@app.get("/api/results")
+async def results() -> Dict:
+    """Every evaluated category, straight from results/<category>/."""
+    return {"categories": [_category_result(name)
+                           for name in _result_categories()]}
+
+
+@app.get("/api/results/{category}/figures/{name}")
+async def result_figure(category: str, name: str) -> FileResponse:
+    if category not in _result_categories():
+        raise HTTPException(status_code=404, detail=f"No results for {category}.")
+    return FileResponse(_resolve(RESULTS_ROOT / category, name),
+                        media_type="image/png")
+
+
+@app.get("/api/results/{category}/heatmaps/{name}")
+async def result_heatmap(category: str, name: str) -> FileResponse:
+    if category not in _result_categories():
+        raise HTTPException(status_code=404, detail=f"No results for {category}.")
+    return FileResponse(_resolve(RESULTS_ROOT / category / "heatmaps", name),
+                        media_type="image/png")
+
+
 # ---------------------------------------------------------------------------
 # Routes: bundled UI
 # ---------------------------------------------------------------------------
@@ -550,6 +668,14 @@ class NoCacheStaticFiles(StaticFiles):
 @app.get("/")
 async def index() -> FileResponse:
     page = WEB_DIR / "index.html"
+    if not page.exists():
+        raise HTTPException(status_code=500, detail=f"Missing {page}.")
+    return FileResponse(page, media_type="text/html", headers=NO_CACHE)
+
+
+@app.get("/results")
+async def results_page() -> FileResponse:
+    page = WEB_DIR / "results.html"
     if not page.exists():
         raise HTTPException(status_code=500, detail=f"Missing {page}.")
     return FileResponse(page, media_type="text/html", headers=NO_CACHE)
